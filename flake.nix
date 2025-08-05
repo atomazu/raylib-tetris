@@ -30,7 +30,13 @@
             pkgs.xorg.libXrandr
             pkgs.bear
 
-            # Uncomment the line below if you want to build Raylib with web support
+            # Wayland dependencies
+            pkgs.libxkbcommon
+            pkgs.wayland-protocols
+            pkgs.wayland
+            pkgs.wayland-scanner
+
+            # For web builds (this is 1GB! wtf!)
             # pkgs.emscripten
           ];
         };

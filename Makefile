@@ -22,7 +22,8 @@ CFLAGS = -I $(RAYLIB_SRC) -I $(SRC_DIR) -g -Wall
 # -L tells the linker where to find library files (.a, .so)
 # -l tells the linker which libraries to link
 LDFLAGS = -L $(RAYLIB_SRC)
-LIBS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+# LIBS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+LIBS = -lraylib -lGL -lm -lpthread -ldl -lrt -lwayland-client -lwayland-cursor -lwayland-egl -lxkbcommon
 
 # The 'all' target is the first one, making it the default when you run 'make'
 all: $(TARGET)
