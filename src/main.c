@@ -1,22 +1,27 @@
 #include "raylib.h"
 
-enum Shape { I, J, L, O, S, Z, T };
-
 #define MATRIX_WIDTH 10
 #define MATRIX_HEIGHT 20
 #define MATRIX_SCALE 60
 
-int matrix[200];
-int colors[8] = {0x000000FF, 0x00FFFFFF, 0x0000FFFF, 0xFFA500FF,
-                 0xFFFF00FF, 0x00FF00FF, 0x800080FF, 0xFF0000FF};
+enum ShapeType { I, J, L, O, S, Z, T };
+struct Shape {
+  int type;
+  int minos[16];
+};
 
-int I_shape[16] = {0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0};
-int O_shape[16] = {0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0};
-int T_shape[16] = {0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0};
-int S_shape[16] = {0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0};
-int Z_shape[16] = {0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0};
-int J_shape[16] = {0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0};
-int L_shape[16] = {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0};
+int matrix[200];
+int colors[8] = {0x00FFFFFF, 0x0000FFFF, 0xFFA500FF, 0xFFFF00FF,
+                 0x00FF00FF, 0x800080FF, 0xFF0000FF};
+
+struct Shape shapes[7] = {
+    {I, {0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}},
+    {J, {0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0}},
+    {L, {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0}},
+    {O, {0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0}},
+    {S, {0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0}},
+    {Z, {0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0}},
+    {T, {0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0}}};
 
 int main() {
   InitWindow(600, 1200, "Tetris Clone");
@@ -28,7 +33,7 @@ int main() {
 
   // Initialize matrix
   for (int i = 0; i < 200; ++i) {
-    matrix[i] = colors[0];
+    matrix[i] = 0x000000FF;
   }
 
   while (!WindowShouldClose()) {
